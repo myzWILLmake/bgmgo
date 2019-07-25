@@ -6,6 +6,10 @@ A lightweight CLI tool to subscribe to anime bamgumi.
 
 `go get github.com/myzWILLmake/bgmgo`
 
+or
+
+[get binary releases](https://github.com/myzWILLmake/bgmgo/releases)
+
 # Usage
 
 First, make sure the aria2 service has run successfully. For the current build of bgmgo, only aria2 is supported as the download service. Bgmgo use magnet links searched from [DMHY](https://share.dmhy.org/) to download files.
