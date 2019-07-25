@@ -10,7 +10,7 @@ import (
 
 var findCmd = &cobra.Command{
 	Use:   "find",
-	Short: "Find magnet links from web by a pattern.",
+	Short: "Find torrent descriptions from a torrent site by a provided pattern.",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		find(args)
@@ -24,14 +24,14 @@ func init() {
 func find(args []string) {
 	dataSource := viper.GetString("data-source")
 	if parser.ParserCtor[dataSource] == nil {
-		fmt.Println("Not valid data source: ", dataSource)
+		fmt.Println("Error: Not a valid data source", dataSource)
 		return
 	}
 
 	web := parser.ParserCtor[dataSource]()
 	err := web.Request(args)
 	if err != nil {
-		fmt.Println("Cannot find any result:", err)
+		fmt.Println("Error:", err)
 	}
 
 	filterMap := map[string]int{
@@ -46,7 +46,7 @@ func find(args []string) {
 
 	n := len(infos)
 	if n == 0 {
-		fmt.Println("Not found any record.")
+		fmt.Println("Not found any result, please check your pattern")
 		return
 	}
 	fmt.Printf("Found %d record(s):\n", n)

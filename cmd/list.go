@@ -35,12 +35,12 @@ func init() {
 
 func list() {
 	if len(globalData.Sublist) == 0 {
-		fmt.Println("No subscription in your list, use \"bgmgo sub\" to subscribe some.")
+		fmt.Println("No subscription in your list, use \"bgmgo sub\" to add some subscriptions.")
 		return
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Sub-No", "Name", "LastUpdateTime", "Progress", "Pattern"})
+	table.SetHeader([]string{"Sub-Number", "Name", "Last-Update-Time", "Progress", "Pattern"})
 
 	keys := []int{}
 	for key := range globalData.Sublist {

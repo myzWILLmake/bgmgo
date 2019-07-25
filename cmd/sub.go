@@ -8,35 +8,28 @@ import (
 
 var subCmd = &cobra.Command{
 	Use:   "sub",
-	Short: "Add a new subscription.",
+	Short: "Add a new subscription with a pattern and a name.",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		sub(args)
 	},
 }
 
-var name string
 var progress float64
 
 func init() {
 	rootCmd.AddCommand(subCmd)
 
-	subCmd.Flags().StringVarP(&name, "name", "n", "", "name for this subscription")
-	subCmd.Flags().Float64VarP(&progress, "progress", "p", 0, "progress for this subscription")
+	subCmd.Flags().Float64VarP(&progress, "progress", "p", 0, "set progress for this subscription")
 }
 
 func sub(args []string) {
-	fmt.Println(args)
-	if len(args) != 1 {
-		if len(args) == 0 {
-			fmt.Println("Please enter a pattern for the subscription.")
-		} else if len(args) > 1 {
-			fmt.Println("Only pattern can be entered. Please use flags to define name or progress.")
-		}
-		return
+	if len(args) < 2 {
+		fmt.Println("Args is not enough. Usage: bgmgo sub [Pattern] [Name]")
 	}
 
 	pattern := args[0]
+	name := args[1]
 
 	globalData.SubMaxNo++
 	no := globalData.SubMaxNo
@@ -46,7 +39,8 @@ func sub(args []string) {
 
 	err := writeData()
 	if err != nil {
+		fmt.Println("Subscription failed:", err)
 		return
 	}
-	fmt.Println("Subscribe succeed!")
+	fmt.Println("Subscription succeed!")
 }
