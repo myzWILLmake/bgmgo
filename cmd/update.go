@@ -103,6 +103,8 @@ func update() {
 					if err := os.Mkdir(dirTest, 0755); err == nil {
 						dir = dirTest
 					}
+				} else {
+					dir = dirTest
 				}
 			}
 
