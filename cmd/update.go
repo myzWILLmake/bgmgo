@@ -87,7 +87,6 @@ func update() {
 			}
 
 			useNameAsFolder := viper.GetBool("use-name-as-subscription-folder")
-			usePatternAsFolder := viper.GetBool("use-pattern-as-subscription-folder")
 			dir := viper.GetString("default-download-dir")
 
 			if _, err := os.Stat(dir); os.IsNotExist(err) {
@@ -97,13 +96,8 @@ func update() {
 				}
 			}
 
-			if useNameAsFolder || usePatternAsFolder {
-				var dirTest string
-				if useNameAsFolder && subItem.Name != "" {
-					dirTest = path.Join(dir, subItem.Name)
-				} else {
-					dirTest = path.Join(dir, subItem.Pattern)
-				}
+			if useNameAsFolder && subItem.Name != "" {
+				dirTest := path.Join(dir, subItem.Name)
 
 				if _, err := os.Stat(dirTest); os.IsNotExist(err) {
 					if err := os.Mkdir(dirTest, 0755); err == nil {
