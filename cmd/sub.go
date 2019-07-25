@@ -25,7 +25,8 @@ func init() {
 
 func sub(args []string) {
 	if len(args) < 2 {
-		fmt.Println("Args is not enough. Usage: bgmgo sub [Pattern] [Name]")
+		fmt.Println("Usage: bgmgo sub [Pattern] [Name]")
+		return
 	}
 
 	pattern := args[0]
@@ -35,7 +36,7 @@ func sub(args []string) {
 	no := globalData.SubMaxNo
 
 	subItem := SubItem{no, name, 0, pattern, progress}
-	globalData.Sublist[no] = subItem
+	globalData.Sublist[no] = &subItem
 
 	err := writeData()
 	if err != nil {

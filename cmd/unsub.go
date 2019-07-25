@@ -9,8 +9,8 @@ import (
 
 var unsubCmd = &cobra.Command{
 	Use:   "unsub",
-	Short: "",
-	Long:  `Remove subscriptions by sub-number`,
+	Short: "Remove subscriptions by sub-number",
+	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		unsub(args)
 	},

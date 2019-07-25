@@ -14,7 +14,7 @@ import (
 )
 
 type Data struct {
-	Sublist  map[int]SubItem
+	Sublist  map[int]*SubItem
 	SubMaxNo int
 }
 
@@ -38,7 +38,7 @@ func init() {
 	cobra.OnInitialize(initConfig)
 	cobra.OnInitialize(initData)
 
-	rootCmd.PersistentFlags().StringVar(&workDir, "workDir", "", "working directory (default is $HOME/.bgmgo)")
+	rootCmd.PersistentFlags().StringVar(&workDir, "work-dir", "", "working directory (default is $HOME/.bgmgo)")
 }
 
 func initConfig() {
@@ -78,7 +78,7 @@ func initConfig() {
 
 func initData() {
 	dataFilePath := path.Join(workDir, "data.json")
-	globalData = &Data{map[int]SubItem{}, 0}
+	globalData = &Data{map[int]*SubItem{}, 0}
 	if _, err := os.Stat(dataFilePath); os.IsNotExist(err) {
 		err := writeData()
 		if err != nil {
