@@ -43,5 +43,5 @@ func sub(args []string) {
 		fmt.Println("Subscription failed:", err)
 		return
 	}
-	fmt.Println("Subscription succeed!")
+	fmt.Println("Subscription succeed! Sub-number is", no)
 }
