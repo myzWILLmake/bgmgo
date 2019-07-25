@@ -10,6 +10,7 @@ import (
 
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 type SubItem struct {
@@ -40,7 +41,12 @@ func list() {
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Sub-Number", "Name", "Last-Update-Time", "Progress", "Pattern"})
+	showPattern := viper.GetBool("show-pattern-in-subscription-list")
+	if showPattern {
+		table.SetHeader([]string{"Sub-Number", "Name", "Last-Update-Time", "Progress", "Pattern"})
+	} else {
+		table.SetHeader([]string{"Sub-Number", "Name", "Last-Update-Time", "Progress"})
+	}
 
 	keys := []int{}
 	for key := range globalData.Sublist {
@@ -51,7 +57,13 @@ func list() {
 	for _, key := range keys {
 		subItem := globalData.Sublist[key]
 
-		tableItem := make([]string, 5)
+		var tableItem []string
+		if showPattern {
+			tableItem = make([]string, 5)
+			tableItem[4] = subItem.Pattern
+		} else {
+			tableItem = make([]string, 4)
+		}
 		tableItem[0] = strconv.Itoa(subItem.No)
 		tableItem[1] = subItem.Name
 		if subItem.Time == 0 {
@@ -64,7 +76,6 @@ func list() {
 		} else {
 			tableItem[3] = fmt.Sprintf("%.1f", subItem.Progress)
 		}
-		tableItem[4] = subItem.Pattern
 		table.Append(tableItem)
 	}
 

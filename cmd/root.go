@@ -126,4 +126,5 @@ func initDefaultConfig() {
 
 	viper.SetDefault("default-download-dir", home)
 	viper.SetDefault("use-name-as-subscription-folder", true)
+	viper.SetDefault("show-pattern-in-subscription-list", false)
 }
