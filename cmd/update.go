@@ -53,7 +53,12 @@ func update() {
 
 	for _, subItem := range globalData.Sublist {
 		maxEp := subItem.Progress
-		web.Request([]string{subItem.Pattern})
+		err := web.Request([]string{subItem.Pattern})
+		if err != nil {
+			fmt.Println("Error: failed to request", dataSource)
+			fmt.Println(err)
+			return
+		}
 		filterMap := map[string]int{
 			"no":    0,
 			"title": 1,
