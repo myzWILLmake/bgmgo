@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"path"
 	"strconv"
@@ -10,6 +11,7 @@ import (
 	"github.com/myzWILLmake/bgmgo/parser"
 	"github.com/spf13/viper"
 
+	"github.com/gen2brain/beeep"
 	"github.com/spf13/cobra"
 )
 
@@ -26,6 +28,19 @@ func init() {
 	rootCmd.AddCommand(updateCmd)
 }
 
+func notifyUpdate(updatedSubItems []*SubItem) {
+	title := fmt.Sprintf("Bgmgo Updated %d Subcription(s)", len(updatedSubItems))
+	msg := ""
+	for _, subItem := range updatedSubItems {
+		if subItem.Progress == math.Floor(subItem.Progress) {
+			msg += fmt.Sprintf("%s updated to EP.%d.\n", subItem.Name, int(subItem.Progress))
+		} else {
+			msg += fmt.Sprintf("%s updated to EP.%.1f.\n", subItem.Name, subItem.Progress)
+		}
+	}
+	beeep.Notify(title, msg, "")
+}
+
 func update() {
 	dataSource := viper.GetString("data-source")
 	if parser.ParserCtor[dataSource] == nil {
@@ -33,10 +48,10 @@ func update() {
 		return
 	}
 
-	count := 0
+	updatedSubItems := []*SubItem{}
 	web := parser.ParserCtor[dataSource]()
 
-	for idx, subItem := range globalData.Sublist {
+	for _, subItem := range globalData.Sublist {
 		maxEp := subItem.Progress
 		web.Request([]string{subItem.Pattern})
 		filterMap := map[string]int{
@@ -63,7 +78,7 @@ func update() {
 		}
 
 		if len(selectNums) > 0 {
-			fmt.Println("Subcription updated:", subItem.Name, "updated to", subItem.Progress, "episode.")
+			fmt.Println("Subcription updated:", subItem.Name, "updated to EP.", maxEp)
 
 			magnets := web.GetMagnets(selectNums)
 			needTrimMagnet := viper.GetBool("enable-trim-magnet")
@@ -105,11 +120,13 @@ func update() {
 
 			subItem.Progress = maxEp
 			subItem.Time = time.Now().Unix()
-			globalData.Sublist[idx] = subItem
-			count++
+			updatedSubItems = append(updatedSubItems, subItem)
 		}
 	}
 
-	fmt.Println("Update completed:", count, "subscription(s) updated.")
+	fmt.Println("Update completed:", len(updatedSubItems), "subscription(s) updated.")
+	if len(updatedSubItems) > 0 {
+		notifyUpdate(updatedSubItems)
+	}
 	writeData()
 }
