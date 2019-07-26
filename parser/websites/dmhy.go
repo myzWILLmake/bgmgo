@@ -37,7 +37,7 @@ func (web *dmhy) Request(args []string) error {
 			case 2:
 				tablecell.Children().Each(func(idx int, item *goquery.Selection) {
 					if item.Is("span") && item.HasClass("tag") {
-						info["organization"] = strings.TrimSpace(item.Find("a").Text())
+						info["team"] = strings.TrimSpace(item.Find("a").Text())
 					} else if item.Is("a") {
 						info["title"] = strings.TrimSpace(item.Text())
 					}
@@ -63,27 +63,6 @@ func (web *dmhy) Request(args []string) error {
 	})
 	web.resCache = infos
 	return nil
-}
-
-func (web *dmhy) ShowFindResult(filterMap map[string]int, len int) [][]string {
-	infos := [][]string{}
-	for _, row := range web.resCache {
-		info := make([]string, len)
-		for key, idx := range filterMap {
-			info[idx] = row[key]
-		}
-		infos = append(infos, info)
-	}
-
-	return infos
-}
-
-func (web *dmhy) GetMagnets(selectNums []int) []string {
-	res := make([]string, len(selectNums))
-	for idx, num := range selectNums {
-		res[idx] = web.resCache[num]["magnet"]
-	}
-	return res
 }
 
 func DmhyCtor() WebParser {

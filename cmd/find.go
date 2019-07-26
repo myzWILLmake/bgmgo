@@ -35,11 +35,11 @@ func find(args []string) {
 	}
 
 	filterMap := map[string]int{
-		"no":           0,
-		"type":         1,
-		"organization": 2,
-		"size":         3,
-		"title":        4,
+		"no":    0,
+		"type":  1,
+		"team":  2,
+		"size":  3,
+		"title": 4,
 	}
 
 	infos := web.ShowFindResult(filterMap, 5)
