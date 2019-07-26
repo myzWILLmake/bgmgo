@@ -129,5 +129,10 @@ func update() {
 	if len(updatedSubItems) > 0 {
 		notifyUpdate(updatedSubItems)
 	}
-	writeData()
+
+	err := writeData()
+	if err != nil {
+		fmt.Println("Cannot update subscription progress", err)
+		return
+	}
 }

@@ -40,6 +40,13 @@ func unsub(args []string) {
 		}
 
 		delete(globalData.Sublist, int(no))
-		fmt.Println("Unsubscription succeed! Sub-number:", no)
 	}
+
+	err := writeData()
+	if err != nil {
+		fmt.Println("Unsubscribe failed:", err)
+		return
+	}
+
+	fmt.Println("Unsubscription succeed! Sub-number(s):", args)
 }
