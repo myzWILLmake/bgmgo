@@ -22,7 +22,11 @@ var findSource string
 func init() {
 	rootCmd.AddCommand(findCmd)
 
-	findCmd.Flags().StringVarP(&findSource, "source", "s", "", "set data source where to search magnet links")
+	findCmd.Flags().StringVarP(&findSource, "source", "s", "",
+		"set data source where to search magnet links,\n"+
+			"available options:\n"+
+			"    DMHY\n"+
+			"    bangumi_moe")
 }
 
 func find(args []string) {

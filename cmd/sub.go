@@ -24,8 +24,11 @@ func init() {
 	rootCmd.AddCommand(subCmd)
 
 	subCmd.Flags().Float64VarP(&subProgress, "progress", "p", 0, "set progress for this subscription")
-
-	subCmd.Flags().StringVarP(&subSource, "source", "s", "", "set data source where to search magnet links")
+	subCmd.Flags().StringVarP(&subSource, "source", "s", "",
+		"set data source where to search magnet links,\n"+
+			"available options:\n"+
+			"    DMHY\n"+
+			"    bangumi_moe")
 }
 
 func sub(args []string) {

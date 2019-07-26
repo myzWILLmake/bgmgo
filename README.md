@@ -12,11 +12,16 @@ or
 
 # Usage
 
-First, make sure the aria2 service has run successfully. For the current build of bgmgo, only aria2 is supported as the download service. Bgmgo use magnet links searched from [DMHY](https://share.dmhy.org/) to download files.
-
-The default work direction folder is `$HOME/.bgmgo`, the config file is `config.json`.
+First, make sure the aria2 service has run successfully. For the current build of bgmgo, only aria2 is supported as the download service. The default work direction folder is `$HOME/.bgmgo`, the config file is `config.json`.
 
 The default aria2-rpc address is `http://localhost:6800/jsonrpc`. And default aria2-rpc token is `""`, which means no password set. You could change them in the config file.
+
+Bgmgo downloads files by magnet links searched from:
+
+- [bangumi.moe](https://bangumi.moe/)(default)
+- [DMHY](https://share.dmhy.org/)
+
+You could change the data srouce in config file (`data-source`), or by flags (`-s [data-srouce]`). 
 
 ## Find Magnet Links
 
