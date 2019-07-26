@@ -42,22 +42,23 @@ func notifyUpdate(updatedSubItems []*SubItem) {
 }
 
 func update() {
-	dataSource := viper.GetString("data-source")
-	if parser.ParserCtor[dataSource] == nil {
-		fmt.Println("Not valid data source: ", dataSource)
-		return
-	}
-
 	updatedSubItems := []*SubItem{}
-	web := parser.ParserCtor[dataSource]()
 
+	// TODO: Use goroutine to request
 	for _, subItem := range globalData.Sublist {
+		source := subItem.Source
+		if parser.ParserCtor[source] == nil {
+			fmt.Println("Not valid data source: ", source)
+			continue
+		}
+		web := parser.ParserCtor[source]()
+
 		maxEp := subItem.Progress
 		err := web.Request([]string{subItem.Pattern})
 		if err != nil {
-			fmt.Println("Error: failed to request", dataSource)
+			fmt.Println("Error: failed to request", source)
 			fmt.Println(err)
-			return
+			continue
 		}
 		filterMap := map[string]int{
 			"no":    0,
@@ -97,7 +98,7 @@ func update() {
 			if _, err := os.Stat(dir); os.IsNotExist(err) {
 				if err := os.MkdirAll(dir, 0755); err != nil {
 					fmt.Println("Cannot create Download folder:", err)
-					return
+					continue
 				}
 			}
 
@@ -116,7 +117,7 @@ func update() {
 			err := downloadMagnets(magnets, dir)
 			if err != nil {
 				fmt.Println("Cannot connect to aria2:", err)
-				return
+				continue
 			}
 
 			subItem.Progress = maxEp

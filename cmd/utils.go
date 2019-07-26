@@ -74,7 +74,9 @@ func parseEpisodeFromTitle(title string) float64 {
 
 func trimMagnets(magnets []string) {
 	for idx, s := range magnets {
-		magnets[idx] = s[:strings.Index(s, "&")]
+		if strings.Index(s, "&") != -1 {
+			magnets[idx] = s[:strings.Index(s, "&")]
+		}
 	}
 }
 

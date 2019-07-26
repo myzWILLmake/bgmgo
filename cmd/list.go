@@ -19,6 +19,7 @@ type SubItem struct {
 	Time     int64
 	Pattern  string
 	Progress float64
+	Source   string
 }
 
 var listCmd = &cobra.Command{
@@ -43,9 +44,9 @@ func list() {
 	table := tablewriter.NewWriter(os.Stdout)
 	showPattern := viper.GetBool("show-pattern-in-subscription-list")
 	if showPattern {
-		table.SetHeader([]string{"Sub-Number", "Name", "Last-Update-Time", "Progress", "Pattern"})
+		table.SetHeader([]string{"Sub-Number", "Name", "Last-Update-Time", "Progress", "Source", "Pattern"})
 	} else {
-		table.SetHeader([]string{"Sub-Number", "Name", "Last-Update-Time", "Progress"})
+		table.SetHeader([]string{"Sub-Number", "Name", "Last-Update-Time", "Progress", "Source"})
 	}
 
 	keys := []int{}
@@ -59,10 +60,10 @@ func list() {
 
 		var tableItem []string
 		if showPattern {
-			tableItem = make([]string, 5)
-			tableItem[4] = subItem.Pattern
+			tableItem = make([]string, 6)
+			tableItem[5] = subItem.Pattern
 		} else {
-			tableItem = make([]string, 4)
+			tableItem = make([]string, 5)
 		}
 		tableItem[0] = strconv.Itoa(subItem.No)
 		tableItem[1] = subItem.Name
@@ -76,6 +77,7 @@ func list() {
 		} else {
 			tableItem[3] = fmt.Sprintf("%.1f", subItem.Progress)
 		}
+		tableItem[4] = subItem.Source
 		table.Append(tableItem)
 	}
 

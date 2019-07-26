@@ -17,18 +17,25 @@ var findCmd = &cobra.Command{
 	},
 }
 
+var findSource string
+
 func init() {
 	rootCmd.AddCommand(findCmd)
+
+	findCmd.Flags().StringVarP(&findSource, "source", "s", "", "set data source where to search magnet links")
 }
 
 func find(args []string) {
-	dataSource := viper.GetString("data-source")
-	if parser.ParserCtor[dataSource] == nil {
-		fmt.Println("Error: Not a valid data source", dataSource)
+	if findSource == "" {
+		findSource = viper.GetString("data-source")
+	}
+
+	if parser.ParserCtor[findSource] == nil {
+		fmt.Println("Error: Not a valid data source", findSource)
 		return
 	}
 
-	web := parser.ParserCtor[dataSource]()
+	web := parser.ParserCtor[findSource]()
 	err := web.Request(args)
 	if err != nil {
 		fmt.Println("Error:", err)

@@ -3,6 +3,8 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/spf13/viper"
+
 	"github.com/spf13/cobra"
 )
 
@@ -15,12 +17,15 @@ var subCmd = &cobra.Command{
 	},
 }
 
-var progress float64
+var subProgress float64
+var subSource string
 
 func init() {
 	rootCmd.AddCommand(subCmd)
 
-	subCmd.Flags().Float64VarP(&progress, "progress", "p", 0, "set progress for this subscription")
+	subCmd.Flags().Float64VarP(&subProgress, "progress", "p", 0, "set progress for this subscription")
+
+	subCmd.Flags().StringVarP(&subSource, "source", "s", "", "set data source where to search magnet links")
 }
 
 func sub(args []string) {
@@ -35,7 +40,11 @@ func sub(args []string) {
 	globalData.SubMaxNo++
 	no := globalData.SubMaxNo
 
-	subItem := SubItem{no, name, 0, pattern, progress}
+	if subSource == "" {
+		subSource = viper.GetString("data-source")
+	}
+
+	subItem := SubItem{no, name, 0, pattern, subProgress, subSource}
 	globalData.Sublist[no] = &subItem
 
 	err := writeData()
