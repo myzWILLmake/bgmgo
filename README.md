@@ -59,3 +59,13 @@ Use `bgmgo update` to update all your subscriptions. If there are new episodes, 
 # How to Schedule
 
 You could use cron/crontab on *nix and schtasks on Windows. When new update episodes found, you can get notification from the system notification center.
+
+## linux
+
+Example: `0,30 * * * * /path/to/bgmgo update >> /home/user/.bgmgo/bgmgo.log`
+
+Add this task to your crontab, it will run `bgmgo update` every 30 mins.
+
+## Windows
+
+Sorry, not test yet.
