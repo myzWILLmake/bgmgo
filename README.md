@@ -25,11 +25,16 @@ You could change the data srouce in config file (`data-source`), or by flags (`-
 
 ## Find Magnet Links
 
+![find command example](./docs/examples/bgmgo_find.svg)
+
 `bgmgo find [pattern]`
 
 Use a pattern to help you find the specific anime title. Pattern is like the keywords you type in the search bar and use space to split keywords.
 
+
 ## Add/Remove Subcriptions
+
+![sub command example](./docs/examples/bgmgo_sub_list.svg)
 
 `bgmgo sub [pattern] [name]`
 
@@ -44,6 +49,8 @@ Use `bgmgo unsub` to unsubscribe the anime when you don't want to check it updat
 `bgmgo list`
 
 ## Update Subscriptions
+
+![update command example](./docs/examples/bgmgo_update.svg)
 
 `bgmgo update`
 
