@@ -8,7 +8,7 @@ A lightweight CLI tool to subscribe to anime bamgumi.
 
 or
 
-[get binary releases](https://github.com/myzWILLmake/bgmgo/releases)
+[get binary releases](https://github.com/myzWILLmake/bgmgo/releases) (You may need to change name of the binary file, and puth it in your PATH manually)
 
 # Usage
 
