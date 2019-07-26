@@ -22,6 +22,7 @@ func parseEpisodeFromTitle(title string) float64 {
 		`\bv\d`,
 		`big5`,
 		`mp4`,
+		`assx2`,
 	}
 
 	epNumPattern := `(?:\D*|^)([\d.]+)(-[\d.]+)?(?:\D*|$)`
