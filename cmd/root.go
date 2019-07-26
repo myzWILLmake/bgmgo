@@ -117,7 +117,7 @@ func writeData() error {
 }
 
 func initDefaultConfig() {
-	viper.SetDefault("data-source", "dmhy")
+	viper.SetDefault("data-source", "bangumi_moe")
 	viper.SetDefault("aria2-rpc-address", "http://localhost:6800/jsonrpc")
 	viper.SetDefault("aria2-rpc-token", "")
 	viper.SetDefault("enable-trim-magnet", true)
