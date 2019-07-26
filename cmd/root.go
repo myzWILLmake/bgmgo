@@ -37,8 +37,6 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 	cobra.OnInitialize(initData)
-
-	rootCmd.PersistentFlags().StringVar(&workDir, "work-dir", "", "working directory (default is $HOME/.bgmgo)")
 }
 
 func initConfig() {
