@@ -67,10 +67,20 @@ func (web *bangumiMoe) Request(args []string) error {
 			info["type"] = "-"
 		}
 		info["title"] = torrentMap["title"].(string)
-		info["team"] = torrentMap["team"].(map[string]interface{})["name"].(string)
+		teamMap, ok := torrentMap["team"].(map[string]interface{})
+		if ok {
+			info["team"] = teamMap["name"].(string)
+		} else {
+			info["team"] = "-"
+		}
 		info["magnet"] = torrentMap["magnet"].(string)
 		info["size"] = torrentMap["size"].(string)
-		info["publisher"] = torrentMap["uploader"].(map[string]interface{})["username"].(string)
+		publishMap, ok := torrentMap["uploader"].(map[string]interface{})
+		if ok {
+			info["publisher"] = publishMap["username"].(string)
+		} else {
+			info["publisher"] = "-"
+		}
 		info["torrentSourceNum"] = strconv.Itoa(int(torrentMap["seeders"].(float64)))
 		info["downloadedNum"] = strconv.Itoa(int(torrentMap["downloads"].(float64)))
 		info["finishedNum"] = strconv.Itoa(int(torrentMap["finished"].(float64)))
