@@ -47,7 +47,10 @@ func (web *bangumiMoe) Request(args []string) error {
 
 	infos := make([]map[string]string, 0)
 
-	torrents := jsonRes["torrents"].([]interface{})
+	torrents, ok := jsonRes["torrents"].([]interface{})
+	if !ok {
+		return nil
+	}
 	for idx, torrent := range torrents {
 		info := make(map[string]string)
 		info["no"] = strconv.Itoa(idx)
