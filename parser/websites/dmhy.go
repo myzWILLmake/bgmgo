@@ -50,9 +50,9 @@ func (web *dmhy) Request(args []string) error {
 			case 4:
 				info["size"] = strings.TrimSpace(tablecell.Text())
 			case 5:
-				info["torrentSourceNum"] = strings.TrimSpace(tablecell.Text())
+				info["seeders"] = strings.TrimSpace(tablecell.Text())
 			case 6:
-				info["downloadedNum"] = strings.TrimSpace(tablecell.Text())
+				info["leechers"] = strings.TrimSpace(tablecell.Text())
 			case 7:
 				info["finishedNum"] = strings.TrimSpace(tablecell.Text())
 			case 8:

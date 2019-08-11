@@ -19,7 +19,8 @@ The default aria2-rpc address is `http://localhost:6800/jsonrpc`. And default ar
 Bgmgo downloads files by magnet links searched from:
 
 - [bangumi.moe](https://bangumi.moe/)(default)
-- [DMHY](https://share.dmhy.org/)
+- [dmhy](https://share.dmhy.org/)
+- [nyaa](https://nyaa.si)
 
 You could change the data srouce in config file (`data-source`), or by flags (`-s [data-srouce]`). 
 

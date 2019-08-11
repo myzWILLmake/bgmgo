@@ -81,8 +81,8 @@ func (web *bangumiMoe) Request(args []string) error {
 		} else {
 			info["publisher"] = "-"
 		}
-		info["torrentSourceNum"] = strconv.Itoa(int(torrentMap["seeders"].(float64)))
-		info["downloadedNum"] = strconv.Itoa(int(torrentMap["downloads"].(float64)))
+		info["seeders"] = strconv.Itoa(int(torrentMap["seeders"].(float64)))
+		info["leechers"] = strconv.Itoa(int(torrentMap["downloads"].(float64)))
 		info["finishedNum"] = strconv.Itoa(int(torrentMap["finished"].(float64)))
 
 		infos = append(infos, info)

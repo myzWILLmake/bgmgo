@@ -49,7 +49,11 @@ func parseEpisodeFromTitle(title string) float64 {
 	parseEpisode := func(token string) float64 {
 		re := regexp.MustCompile(epNumPattern)
 		s := re.ReplaceAllString(token, `$1$2`)
-		s = strings.Split(s, "-")[0]
+		sSplit := strings.Split(s, "-")
+		if len(sSplit) > 1 {
+			return -1
+		}
+		s = sSplit[0]
 		ans, err := strconv.ParseFloat(string(s), 64)
 		if err != nil {
 			fmt.Println("Cannot parseEpisode:", err, s)

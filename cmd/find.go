@@ -25,8 +25,9 @@ func init() {
 	findCmd.Flags().StringVarP(&findSource, "source", "s", "",
 		"set data source where to search magnet links,\n"+
 			"available options:\n"+
-			"    DMHY\n"+
-			"    bangumi_moe")
+			"	dmhy\n"+
+			"	bangumi_moe\n"+
+			"	nyaa")
 }
 
 func find(args []string) {
