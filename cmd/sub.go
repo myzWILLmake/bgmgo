@@ -34,12 +34,17 @@ func init() {
 
 func sub(args []string) {
 	if len(args) < 2 {
-		fmt.Println("Usage: bgmgo sub [Pattern] [Name]")
+		fmt.Println("Usage: bgmgo sub [Pattern] [Name] [Season]")
 		return
 	}
 
 	pattern := args[0]
 	name := args[1]
+	season := ""
+
+	if len(args) == 3 {
+		season = args[2]
+	}
 
 	globalData.SubMaxNo++
 	no := globalData.SubMaxNo
@@ -48,7 +53,7 @@ func sub(args []string) {
 		subSource = viper.GetString("data-source")
 	}
 
-	subItem := SubItem{no, name, 0, pattern, subProgress, subSource}
+	subItem := SubItem{no, name, 0, pattern, subProgress, subSource, season}
 	globalData.Sublist[no] = &subItem
 
 	err := writeData()

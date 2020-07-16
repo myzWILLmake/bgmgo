@@ -20,6 +20,7 @@ type SubItem struct {
 	Pattern  string
 	Progress float64
 	Source   string
+	Season   string
 }
 
 var listCmd = &cobra.Command{

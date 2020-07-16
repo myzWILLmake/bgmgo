@@ -96,6 +96,7 @@ func doUpdateSubItem(subItem *SubItem, wg *sync.WaitGroup, updatedSubItems chan 
 		}
 
 		useNameAsFolder := viper.GetBool("use-name-as-subscription-folder")
+		useSeasonFolder := viper.GetBool("use-season-folder")
 		dir := viper.GetString("default-download-dir")
 
 		if _, err := os.Stat(dir); os.IsNotExist(err) {
@@ -107,10 +108,15 @@ func doUpdateSubItem(subItem *SubItem, wg *sync.WaitGroup, updatedSubItems chan 
 
 		if useNameAsFolder && subItem.Name != "" {
 			dirTest := path.Join(dir, subItem.Name)
+			if useSeasonFolder && subItem.Season != "" {
+				dirTest = path.Join(dirTest, subItem.Season)
+			}
 
 			if _, err := os.Stat(dirTest); os.IsNotExist(err) {
-				if err := os.Mkdir(dirTest, 0755); err == nil {
+				if err := os.MkdirAll(dirTest, 0755); err == nil {
 					dir = dirTest
+				} else {
+					fmt.Println("Cannot create Bangumi folder:", err)
 				}
 			} else {
 				dir = dirTest
